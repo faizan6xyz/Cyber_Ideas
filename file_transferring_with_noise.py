@@ -33,13 +33,15 @@ def add_noise(text):
     text_list = list(text)
     text_L = len(text_list)
     base64_chars = string.ascii_letters + string.digits + '+/'
+    x_new = 0
     if text_L == 0 :
         print("string is empty")
         return ""
-    x_new = 0
     for i in range(0, text_L, 100): # start , stop , step
         x = random.randint(1, 100)     
         xx = x + x_new
+        if xx >= text_L:  
+            continue 
         steps_for_noise.append(xx)
         x1 = random.choice(base64_chars)
         text_for_the_noise.append(text_list[xx])

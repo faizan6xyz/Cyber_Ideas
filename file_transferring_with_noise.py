@@ -70,4 +70,7 @@ def pipeline(image):
     restored = remove_noise(noised)
     base64_to_image(restored)
     
-pipeline("h.png")
+# pipeline("h.png")
+if __name__ == '__main__' :
+    filename = input("enter the file name : ")
+    pipeline(filename)

@@ -35,12 +35,21 @@ def load_snapshot(path):
         with open(snap_path, "r", errors="replace") as f:
             return f.readlines()
     return None
-def show_diff(old_lines , new_lines , path):
-    for i in range(len(new_lines)):
-        if old_lines[i] != new_lines[i]:
-            print(f"In the line {i+1} changed occured")
-            print(f"before the change : {old_lines[i]}")
-            print(f"after the change : {new_lines[i]}")
+def show_diff(old_lines, new_lines, path):
+    max_len = max(len(old_lines), len(new_lines))
+    for i in range(max_len):
+        old_line = old_lines[i] if i < len(old_lines) else None
+        new_line = new_lines[i] if i < len(new_lines) else None
+        if old_line == new_line:
+            continue
+        print(f"Line {i + 1} changed:")
+        if old_line is None:
+            print(f"  [ADDED]   {new_line!r}")
+        elif new_line is None:
+            print(f"  [DELETED] {old_line!r}")
+        else:
+            print(f"  Before: {old_line!r}")
+            print(f"  After:  {new_line!r}")
 def check_file(path):
     store = load_store()
     current_hash = sha256_of_file(path)

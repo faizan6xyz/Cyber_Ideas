@@ -4,8 +4,9 @@ import os
 import sys
 import time
 STORE_FILE = "filehashesname.json"
-def sha256_of_file(path, chunk_size=65536):
+def sha256_of_file(name , folder_path = "Data" , chunk_size=65536):
     h = hashlib.sha256()
+    path = os.path.join(folder_path , name)
     with open(path, "rb") as f:
         for chunk in iter(lambda: f.read(chunk_size), b""):
             h.update(chunk)

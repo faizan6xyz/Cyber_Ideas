@@ -35,18 +35,12 @@ def load_snapshot(path):
         with open(snap_path, "r", errors="replace") as f:
             return f.readlines()
     return None
-def show_diff(old_lines, new_lines, path):
-    diff = difflib.unified_diff(
-        old_lines, new_lines,
-        fromfile=f"{path} (old)",
-        tofile=f"{path} (new)",
-        lineterm=""
-    )
-    diff_text = "\n".join(diff)
-    if diff_text:
-        print(diff_text)
-    else:
-        print("(no line-level diff available — binary or identical content)")
+def show_diff(old_lines , new_lines , path):
+    for i in range(len(new_lines)):
+        if old_lines[i] != new_lines[i]:
+            print(f"In the line {i+1} changed occured")
+            print(f"before the change : {old_lines[i]}")
+            print(f"after the change : {new_lines[i]}")
 def check_file(path):
     store = load_store()
     current_hash = sha256_of_file(path)
@@ -70,3 +64,4 @@ def check_file(path):
     save_snapshot(path, current_lines)
 if __name__ == "__main__":
     check_file("Data/x.txt")
+    
